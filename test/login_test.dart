@@ -38,7 +38,9 @@ void main() {
     testWidgets('Empty form shows validation errors', (tester) async {
       await openLogin(tester);
 
-      await tester.tap(find.widgetWithText(ElevatedButton, 'Нэвтрэх'));
+      final loginButton = find.text('Нэвтрэх').last;
+      await tester.ensureVisible(loginButton);
+      await tester.tap(loginButton);
       await tester.pump();
 
       expect(find.text('Зөв и-мэйл оруулна уу'), findsOneWidget);
@@ -56,7 +58,9 @@ void main() {
       await tester.enterText(fields.at(0), 'invalid-email');
       await tester.enterText(fields.at(1), '123456');
 
-      await tester.tap(find.widgetWithText(ElevatedButton, 'Нэвтрэх'));
+      final loginButton = find.text('Нэвтрэх').last;
+      await tester.ensureVisible(loginButton);
+      await tester.tap(loginButton);
       await tester.pump();
 
       expect(find.text('Зөв и-мэйл оруулна уу'), findsOneWidget);
@@ -71,7 +75,9 @@ void main() {
       await tester.enterText(fields.at(0), 'test@example.com');
       await tester.enterText(fields.at(1), '123');
 
-      await tester.tap(find.widgetWithText(ElevatedButton, 'Нэвтрэх'));
+      final loginButton = find.text('Нэвтрэх').last;
+      await tester.ensureVisible(loginButton);
+      await tester.tap(loginButton);
       await tester.pump();
 
       expect(
@@ -89,7 +95,9 @@ void main() {
       await tester.enterText(fields.at(0), 'customer@test.com');
       await tester.enterText(fields.at(1), '123456');
 
-      await tester.tap(find.widgetWithText(ElevatedButton, 'Нэвтрэх'));
+      final loginButton = find.text('Нэвтрэх').last;
+      await tester.ensureVisible(loginButton);
+      await tester.tap(loginButton);
       await tester.pumpAndSettle();
 
       expect(find.byType(HomeScreen), findsOneWidget);
@@ -107,7 +115,9 @@ void main() {
       await tester.enterText(fields.at(0), 'provider@test.com');
       await tester.enterText(fields.at(1), '123456');
 
-      await tester.tap(find.widgetWithText(ElevatedButton, 'Нэвтрэх'));
+      final loginButton = find.text('Нэвтрэх').last;
+      await tester.ensureVisible(loginButton);
+      await tester.tap(loginButton);
       await tester.pumpAndSettle();
 
       expect(find.byType(ProviderDashboard), findsOneWidget);
@@ -125,7 +135,9 @@ void main() {
       await tester.enterText(fields.at(0), 'admin@test.com');
       await tester.enterText(fields.at(1), '123456');
 
-      await tester.tap(find.widgetWithText(ElevatedButton, 'Нэвтрэх'));
+      final loginButton = find.text('Нэвтрэх').last;
+      await tester.ensureVisible(loginButton);
+      await tester.tap(loginButton);
       await tester.pumpAndSettle();
 
       expect(find.byType(AdminDashboard), findsOneWidget);

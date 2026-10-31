@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../core/theme/app_colors.dart';
+
 import '../../core/widgets/provider_bottom_nav.dart';
 import '../../data/mock_orders.dart';
 import '../../data/mock_provider.dart';
@@ -172,9 +174,10 @@ class _ProviderDashboardState extends State<ProviderDashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF6F9FF),
+      backgroundColor: AppColors.background,
       appBar: AppBar(
         backgroundColor: Colors.white,
+        surfaceTintColor: Colors.transparent,
         automaticallyImplyLeading: false,
         title: const Row(
           children: [
@@ -305,7 +308,7 @@ class _ProviderDashboardState extends State<ProviderDashboard> {
           child: ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 1100),
             child: ListView(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.fromLTRB(16, 18, 16, 30),
               children: [
                 _heroBanner(),
                 const SizedBox(height: 20),
@@ -316,7 +319,7 @@ class _ProviderDashboardState extends State<ProviderDashboard> {
                         'Шинэ',
                         pending,
                         Icons.pending_actions_rounded,
-                        const Color(0xFFF59E0B),
+                        AppColors.pending,
                       ),
                     ),
                     const SizedBox(width: 8),
@@ -325,7 +328,7 @@ class _ProviderDashboardState extends State<ProviderDashboard> {
                         'Идэвхтэй',
                         active,
                         Icons.handyman_rounded,
-                        const Color(0xFF2563EB),
+                        AppColors.primary,
                       ),
                     ),
                     const SizedBox(width: 8),
@@ -334,7 +337,7 @@ class _ProviderDashboardState extends State<ProviderDashboard> {
                         'Дууссан',
                         completed,
                         Icons.check_circle_rounded,
-                        const Color(0xFF16A34A),
+                        AppColors.success,
                       ),
                     ),
                     const SizedBox(width: 8),
@@ -343,15 +346,19 @@ class _ProviderDashboardState extends State<ProviderDashboard> {
                         'Цуцлагдсан',
                         cancelled,
                         Icons.cancel_outlined,
-                        const Color(0xFFDC2626),
+                        AppColors.danger,
                       ),
                     ),
                   ],
                 ),
                 const SizedBox(height: 24),
                 const Text(
-                  'Миний ажил',
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.w800),
+                  'Захиалгын жагсаалт',
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.w900,
+                    color: AppColors.navy,
+                  ),
                 ),
                 const SizedBox(height: 14),
                 SingleChildScrollView(
@@ -388,39 +395,80 @@ class _ProviderDashboardState extends State<ProviderDashboard> {
 
   Widget _heroBanner() {
     return Container(
-      padding: const EdgeInsets.all(24),
+      padding: const EdgeInsets.all(25),
       decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          colors: [Color(0xFF1D4ED8), Color(0xFF60A5FA)],
-        ),
-        borderRadius: BorderRadius.circular(22),
+        gradient: AppColors.primaryGradient,
+        borderRadius: BorderRadius.circular(28),
+        boxShadow: const [
+          BoxShadow(
+            color: Color(0x26078BD3),
+            blurRadius: 24,
+            offset: Offset(0, 10),
+          ),
+        ],
       ),
-      child: const Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Stack(
         children: [
-          Text(
-            'PROVIDER DASHBOARD',
-            style: TextStyle(
-              color: Color(0xFFDBEAFE),
-              fontSize: 12,
-              letterSpacing: 1.2,
-              fontWeight: FontWeight.bold,
+          Positioned(
+            right: -65,
+            top: -75,
+            child: Container(
+              width: 180,
+              height: 180,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.white.withValues(alpha: 0.10),
+              ),
             ),
           ),
-          SizedBox(height: 10),
-          Text(
-            'Миний ажлууд',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 27,
-              fontWeight: FontWeight.w800,
-            ),
-          ),
-          SizedBox(height: 8),
-          Text(
-            'Өөрийн үйлчилгээний захиалгуудыг '
-            'эндээс удирдаарай.',
-            style: TextStyle(color: Colors.white),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 7,
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.white.withValues(alpha: 0.18),
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                child: const Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(Icons.verified_rounded, size: 16, color: Colors.white),
+                    SizedBox(width: 7),
+                    Text(
+                      'TUSGO PROVIDER',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 11,
+                        letterSpacing: 1.2,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 18),
+              const Text(
+                'Миний ажлууд',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 29,
+                  fontWeight: FontWeight.w900,
+                ),
+              ),
+              const SizedBox(height: 8),
+              const Text(
+                'Шинэ захиалгаа хүлээн авч, ажлын явцаа нэг дороос удирдаарай.',
+                style: TextStyle(
+                  color: Color(0xFFEAF7FF),
+                  fontSize: 13,
+                  height: 1.5,
+                ),
+              ),
+            ],
           ),
         ],
       ),
@@ -429,28 +477,44 @@ class _ProviderDashboardState extends State<ProviderDashboard> {
 
   Widget _statCard(String label, int count, IconData icon, Color color) {
     return Container(
-      padding: const EdgeInsets.all(12),
+      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 16),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFFE2E8F0)),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: AppColors.border),
+        boxShadow: AppColors.cardShadow,
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(icon, color: color, size: 23),
-          const SizedBox(height: 10),
+          Container(
+            width: 39,
+            height: 39,
+            decoration: BoxDecoration(
+              color: color.withValues(alpha: 0.10),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Icon(icon, color: color, size: 21),
+          ),
+          const SizedBox(height: 9),
           Text(
             '$count',
             style: TextStyle(
               color: color,
-              fontSize: 27,
+              fontSize: 25,
               fontWeight: FontWeight.w900,
             ),
           ),
-          Text(
-            label,
-            style: const TextStyle(fontSize: 12, color: Color(0xFF64748B)),
+          const SizedBox(height: 4),
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text(
+              label,
+              style: const TextStyle(
+                color: AppColors.muted,
+                fontSize: 11,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
           ),
         ],
       ),
@@ -458,16 +522,25 @@ class _ProviderDashboardState extends State<ProviderDashboard> {
   }
 
   Widget _filterChip(String label, OrderStatus? status) {
+    final selected = selectedFilter == status;
     return Padding(
-      padding: const EdgeInsets.only(right: 8),
+      padding: const EdgeInsets.only(right: 9),
       child: ChoiceChip(
         label: Text(label),
-        selected: selectedFilter == status,
-        onSelected: (_) {
-          setState(() {
-            selectedFilter = status;
-          });
-        },
+        selected: selected,
+        showCheckmark: false,
+        backgroundColor: Colors.white,
+        selectedColor: AppColors.primary,
+        side: BorderSide(
+          color: selected ? AppColors.primary : AppColors.border,
+        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+        labelStyle: TextStyle(
+          color: selected ? Colors.white : AppColors.muted,
+          fontWeight: FontWeight.w700,
+          fontSize: 12,
+        ),
+        onSelected: (_) => setState(() => selectedFilter = status),
       ),
     );
   }
@@ -481,7 +554,8 @@ class _ProviderDashboardState extends State<ProviderDashboard> {
       padding: const EdgeInsets.all(18),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(23),
+        boxShadow: AppColors.cardShadow,
         border: Border.all(
           color: isCancelled
               ? const Color(0xFFFCA5A5)
@@ -496,10 +570,10 @@ class _ProviderDashboardState extends State<ProviderDashboard> {
               Container(
                 padding: const EdgeInsets.all(11),
                 decoration: BoxDecoration(
-                  color: const Color(0xFFEAF2FF),
+                  color: AppColors.primaryLight,
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: Icon(order.icon, color: const Color(0xFF2563EB)),
+                child: Icon(order.icon, color: AppColors.primary),
               ),
               const SizedBox(width: 12),
               Expanded(
@@ -543,7 +617,7 @@ class _ProviderDashboardState extends State<ProviderDashboard> {
             _detailRow(
               Icons.check_circle_outline,
               'Баталгаажсан ирэх цаг: ${order.arrivalTime}',
-              color: const Color(0xFF16A34A),
+              color: AppColors.success,
             ),
           if (isCancelled) ...[
             const SizedBox(height: 8),
