@@ -11,7 +11,7 @@ void main() {
   testWidgets('Welcome screen navigates to Login screen', (
     WidgetTester tester,
   ) async {
-    // Тестийн дэлгэцийн хэмжээг тохируулах
+    // Тестийн дэлгэцийн хэмжээг тохируулаарай
     tester.view.physicalSize = const Size(1080, 1920);
     tester.view.devicePixelRatio = 1.0;
 
