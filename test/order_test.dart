@@ -14,7 +14,7 @@ void main() {
 
   final orders = MockOrders.instance;
 
-  // Тест бүрд шинэ захиалга үүсгэх туслах функц
+  // Тест 1 бүрд шинэ захиалга үүсгэх туслах функц
   MockOrder createTestOrder() {
     return orders.createOrder(
       service: 'Ус хүргэлт',
